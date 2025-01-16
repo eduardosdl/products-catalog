@@ -50,7 +50,7 @@ Inicie o servidor de desenvolvimento:
 ```bash
 npm run dev
 ```
-O frontend estará disponível em http://localhost:3000.
+O frontend estará disponível em http://localhost:5173.
 
 ### Rodando o Backend
 Navegue até a pasta do backend:
