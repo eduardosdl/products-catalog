@@ -1,0 +1,42 @@
+.home-container {
+    padding: 1rem;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.add-button {
+    white-space: nowrap;
+}
+
+.table-container {
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.custom-table {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.custom-table th,
+.custom-table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .add-button {
+        margin-top: 1rem;
+    }
+}
