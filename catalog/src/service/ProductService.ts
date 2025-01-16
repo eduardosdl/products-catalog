@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { Product } from "../types/Product";
 import { ProductRequest } from "../types/ProductRequest";
+import { PageProduct } from "../types/PageProduct";
 
 export class ProductService {
   private static instance: ProductService;
@@ -22,8 +23,13 @@ export class ProductService {
     return ProductService.instance;
   }
 
-  public async getProducts(): Promise<Product[]> {
-    const response = await this.apiClient.get("/products");
+  public async getProducts(page: number, size: number): Promise<PageProduct> {
+    const response = await this.apiClient.get("/products", {
+      params: {
+        page: page,
+        size: size,
+      },
+    });
     return response.data;
   }
 

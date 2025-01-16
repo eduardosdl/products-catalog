@@ -11,15 +11,19 @@ import "./styles.css";
 export function Home() {
   const navigation = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
+  const [page, setPage] = useState(0);
+  const [size] = useState(10);
+  const [totalPages, setTotalPages] = useState(0);
 
-  async function getProducts() {
-    const data = await ProductService.getInstance().getProducts();
-    setProducts(data);
+  async function getProducts(page: number, size: number) {
+    const data = await ProductService.getInstance().getProducts(page, size);
+    setProducts(data.content);
+    setTotalPages(data.totalPages);
   }
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    getProducts(page, size);
+  }, [page, size]);
 
   async function deleteProduct(id: string) {
     try {
@@ -29,6 +33,18 @@ export function Home() {
       );
     } catch {
       toast.error("Erro ao excluir produto");
+    }
+  }
+
+  function handleNextPage() {
+    if (page < totalPages - 1) {
+      setPage(page + 1);
+    }
+  }
+
+  function handlePreviousPage() {
+    if (page > 0) {
+      setPage(page - 1);
     }
   }
 
@@ -45,7 +61,7 @@ export function Home() {
         </Button>
       </div>
       <div className="table-container">
-        <Table striped bordered hover responsive className="custom-table">
+        <Table striped hover responsive className="custom-table">
           <thead>
             <tr>
               <th>Nome</th>
@@ -66,6 +82,7 @@ export function Home() {
                   <Button
                     variant="primary"
                     onClick={() => navigation(`/edit/${product.id}`)}
+                    className="me-2"
                   >
                     Editar
                   </Button>
@@ -80,6 +97,18 @@ export function Home() {
             ))}
           </tbody>
         </Table>
+      </div>
+      <div className="d-flex justify-content-center mt-3 gap-2">
+        <Button
+          variant="outline-primary"
+          onClick={handlePreviousPage}
+          disabled={page === 0}
+        >
+          Anterior
+        </Button>
+        <Button onClick={handleNextPage} disabled={page === totalPages - 1}>
+          Próxima
+        </Button>
       </div>
     </div>
   );

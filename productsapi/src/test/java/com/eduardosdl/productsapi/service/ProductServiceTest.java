@@ -11,8 +11,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,11 +42,13 @@ class ProductServiceTest {
         Product product = new Product();
         Product product2 = new Product();
 
-        when(repository.findAll()).thenReturn(Arrays.asList(product, product2));
+        List<Product> productList = Arrays.asList(product, product2);
+        Page<Product> page = new PageImpl<>(productList);
+        when(repository.findAll(PageRequest.of(0, 10))).thenReturn(page);
 
-        var products = service.getAll();
+        Page<Product> products = service.getAll(0,10);
 
-        assertEquals(2, products.size());
+        assertEquals(2, products.getTotalElements());
     }
 
     @Test

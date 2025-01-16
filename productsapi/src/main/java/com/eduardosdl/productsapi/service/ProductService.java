@@ -5,6 +5,9 @@ import com.eduardosdl.productsapi.model.Product;
 import com.eduardosdl.productsapi.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +18,9 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    public List<Product> getAll() {
-        return repository.findAll();
+    public Page<Product> getAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return repository.findAll(pageable);
     }
 
     public Product getById(UUID id) {
