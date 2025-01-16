@@ -24,7 +24,8 @@ Este é um projeto de catálogo de produtos, que permite gerenciar produtos atra
   - Java
   - Spring Boot
   - Spring Data JPA
-  - H2 Database (para desenvolvimento)
+  - H2 Database
+  - Swagger
 
 ## Pré-requisitos
 - Node.js (versão utilizada 22)
@@ -68,4 +69,5 @@ Inicie o servidor:
 ```bash
 ./mvnw spring-boot:run
 ```
-O backend estará disponível em http://localhost:8080.
+- O backend estará disponível em http://localhost:8080
+- A documentação se encontra em http://localhost:8080/docs
